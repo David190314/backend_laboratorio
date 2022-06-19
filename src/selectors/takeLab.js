@@ -1,7 +1,5 @@
-import fs from 'fs/promises'
-import path, { join } from 'path'
-
 export const takeLab = (newTaking, arrayPatient) => {
+
 
   const labRecordMaker = []
   for (let i = 0; i < arrayPatient.length; i++) {
@@ -76,5 +74,5 @@ export const takeLab = (newTaking, arrayPatient) => {
     }
     labRecordMaker.push(newTaking)
   }
-  console.log(labRecordMaker)
+  //console.log(labRecordMaker)
 }

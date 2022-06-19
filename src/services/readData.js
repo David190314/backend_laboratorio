@@ -1,28 +1,22 @@
 import fs from 'fs'
 import path, { join } from 'path'
-import dotenv from 'dotenv'
-dotenv.config()
 
 import { dataJson } from '../selectors/dataJson.js'
 
-const pathLog = path.resolve(`../../../../temp/${process.env.LOG}.log`)
-
-const readDate = () => {
-  const executionTime = new Date()
-  const pathData = fs.readdirSync('../../../../temp/Data', 'utf-8')
+const readDate = async () => {
+  const executionTime = await new Date()
+  const pathLog = await path.resolve(`../../../../../../temp/data/logs/${executionTime.toDateString()}.log`)
+  const pathData = fs.readdirSync('../../../../../../temp/data', 'utf-8')
   try {
-    const file = fs.readFileSync(
-      `../../../../temp/Data/${pathData[0]}`,
-      'utf-8',
-    )
+    const file = fs.readFileSync(`../../../../../../temp/Data/${pathData[0]}`, 'utf-8')
     let dataFile = file.split(',')
-    dataJson(dataFile)
+    dataJson(dataFile.slice(1, dataFile.length))
     fs.appendFileSync(
       pathLog,
       `\n messages: The document read succesfully, ${executionTime.toLocaleString()}`,
       'utf-8',
-    )
-  } catch (error) {
+      )
+    } catch (error) {
     fs.appendFileSync(
       pathLog,
       `\n messages: The document could not read, Path: ${

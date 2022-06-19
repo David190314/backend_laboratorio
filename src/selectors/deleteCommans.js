@@ -1,10 +1,11 @@
 export const deletCommans = (data) => {
   try {
     const str = data.map((element) => {
-      let elementIte = element.slice(1, element.length - 1).replace(' ', '')
-      return elementIte
+      const reg = /"([^"]*)"|'([^']*)'/g
+      let elementIte = element.replace(reg, '')
+      return elementIte.length>1 ? elementIte : 'N/A'
     })
-    return str
+    return str.slice(0, str.length-1)
   } catch (error) {
       return `this array present error ${error.message}`
   }
